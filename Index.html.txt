@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1 Questions for my baby Ak47</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #fff0f3;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2.5rem;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(255, 75, 110, 0.2);
+            width: 85%;
+            max-width: 400px;
+            z-index: 10;
+            border: 2px solid #ffb3c1;
+        }
+
+        h1 { color: #ff4d6d; font-size: 1.8rem; margin-bottom: 1rem; }
+        p { color: #590d22; font-weight: 500; }
+
+        .btn {
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.3s;
+            margin: 10px;
+            display: inline-block;
+            font-weight: bold;
+        }
+
+        .btn-yes { background-color: #ff4d6d; color: white; box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4); }
+        .btn-start { background-color: #c9184a; color: white; }
+        
+        /* NEW BOAT STYLE: Smooth gliding and bobbing */
+        #no-btn {
+            background-color: #800f2f;
+            color: white;
+            position: absolute;
+            z-index: 999;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            animation: bobbing 2.5s ease-in-out infinite;
+        }
+
+        @keyframes bobbing {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(2deg); }
+        }
+
+        .hidden { display: none; }
+
+        .heart {
+            position: absolute;
+            color: #ff758f;
+            font-size: 20px;
+            user-select: none;
+            pointer-events: none;
+            animation: float 4s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        .heart-bg {
+            font-size: 5rem;
+            animation: pulse 1.5s infinite;
+            display: block;
+            margin-top: 10px;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="love-music" loop>
+        <source src="https://www.chosic.com/wp-content/uploads/2021/07/Rainy-Day-Emotional-Piano-Music.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="page1" class="container">
+        <h1>1 Questions for my baby Ak47</h1>
+        <p>Hey Akriti, I have a very important question for you...</p>
+        <button class="btn btn-start" onclick="showPage('page2')">Open it ❤️</button>
+    </div>
+
+    <div id="page2" class="container hidden">
+        <h1>Do you love me Akriti?</h1>
+        <div style="height: 120px; position: relative;">
+            <button class="btn btn-yes" onclick="celebrate()">Yes</button>
+            <button id="no-btn" class="btn">No</button>
+        </div>
+    </div>
+
+    <div id="page3" class="container hidden">
+        <h1>Baby I love you tooo! ❤️</h1>
+        <p>You're stuck with me forever now!</p>
+        <span class="heart-bg">💖</span>
+    </div>
+
+    <script>
+        function showPage(pageId) {
+            document.querySelectorAll('.container').forEach(page => page.classList.add('hidden'));
+            document.getElementById(pageId).classList.remove('hidden');
+        }
+
+        function celebrate() {
+            showPage('page3');
+            startHearts();
+            document.getElementById('love-music').play();
+        }
+
+        const noBtn = document.getElementById('no-btn');
+
+        // NEW BOAT MOTION: Glides and tilts
+        const moveButton = () => {
+            const padding = 60;
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - padding) + padding/2;
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - padding) + padding/2;
+            
+            // Random tilt to simulate a wave
+            const tilt = (Math.random() - 0.5) * 30; 
+            
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+            noBtn.style.transform = `rotate(${tilt}deg)`;
+        };
+
+        noBtn.addEventListener('mouseover', moveButton);
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            moveButton();
+        });
+
+        function startHearts() {
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤️';
+                heart.classList.add('heart');
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                document.body.appendChild(heart);
+                setTimeout(() => { heart.remove(); }, 4000);
+            }, 300);
+        }
+    </script>
+</body>
+</html>
